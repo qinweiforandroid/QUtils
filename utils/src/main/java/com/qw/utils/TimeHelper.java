@@ -1,6 +1,5 @@
 package com.qw.utils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,60 +11,34 @@ import java.util.TimeZone;
  */
 public class TimeHelper {
     /**
-     * 返回自1970年至现在的毫秒数为特定的字符串.
+     * 获取当前时间
      *
-     * @param mSeconds s
-     * @return s
+     * @return 当前时间戳
      */
-    public static String updateMilliSecToFormatDateStr(long mSeconds) {
-        SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm");
-        return mDateFormat.format(new Date(mSeconds));
+    public static long getCurrentTime() {
+        return System.currentTimeMillis();
     }
 
     /**
-     * s
+     * 日期格式化
      *
-     * @param mSeconds s
-     * @param mFormat  s
-     * @return s
+     * @param timestamp 时间戳
+     * @return yyyy-MM-dd
      */
-    public static String updateMilliSecToFormatDateStr(long mSeconds, String mFormat) {
-        SimpleDateFormat mDateFormat = new SimpleDateFormat(mFormat);
-        return mDateFormat.format(new Date(mSeconds));
+    public static String getDate(long timestamp) {
+        return getFormatTime(timestamp, "yyyy-MM-dd");
     }
 
     /**
-     * 返回当前发送音频的时间点.
+     * 日期格式化
      *
-     * @return 返回当前发送音频的时间点
-     */
-    public static String getChatSendTime() {
-        try {
-            Date now = new Date();
-            DateFormat format = DateFormat.getDateInstance();
-            DateFormat format2 = DateFormat.getTimeInstance();
-            return format.format(now) + format2.format(now);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static String getHeadTime() {
-        Date date = new Date();
-        SimpleDateFormat myFormatter = new SimpleDateFormat("MM-dd HH:mm");
-        return myFormatter.format(date);
-    }
-
-    /**
      * @param dateTimeStr yyyy-MM-dd HH:mm:ss
      * @return yyyy-MM-dd
      */
     public static String getDate(String dateTimeStr) {
         SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            return format.format(myFormatter.parse(dateTimeStr));
+            return getDate(myFormatter.parse(dateTimeStr).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -73,25 +46,45 @@ public class TimeHelper {
     }
 
     /**
-     * Get the format time.
+     * 获取当前时间
      *
-     * @return s
+     * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getTime() {
-        Date date = new Date();
-        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return myFormatter.format(date);
+        return getTime(System.currentTimeMillis());
     }
 
-    public static String getChatTime(long time) {
+    /**
+     * @param time 时间戳
+     * @return yyyy-MM-dd HH:mm:ss
+     */
+    public static String getTime(long time) {
+        return getFormatTime(time, "yyyy-MM-dd HH:mm:ss");
+    }
+
+
+    /**
+     * 获取时间
+     *
+     * @return MM-dd HH:mm
+     */
+    public static String getHeadTime() {
+        return getFormatTime(getCurrentTime(), "MM-dd HH:mm");
+    }
+
+
+    /**
+     * 格式化时间
+     *
+     * @param time 时间戳
+     * @return 格式2019-04-03 15:19
+     */
+    public static String getFormatTime(long time, String format) {
         Date date = new Date(time);
-        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat myFormatter = new SimpleDateFormat(format);
         return myFormatter.format(date);
     }
 
-    public static long getCurrTime() {
-        return System.currentTimeMillis();
-    }
 
     /**
      * @param time milliseconds
@@ -152,59 +145,6 @@ public class TimeHelper {
         return compare2(c1);
     }
 
-    public static String getTimeRule3(long time) {
-        Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00"));
-        c1.setTimeInMillis(time);
-        return compare3(c1);
-    }
-
-    public static String getTimeRule4(long time) {
-        Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00"));
-        c1.setTimeInMillis(time);
-        return compare4(c1);
-    }
-
-    private static String compare4(Calendar c1) {
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yy-MM-dd");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd");
-        Calendar c2 = Calendar.getInstance(TimeZone.getDefault());
-        if (c1.get(Calendar.YEAR) < c2.get(Calendar.YEAR)) {
-            return sdf1.format(c1.getTime());
-        }
-        if (c1.get(Calendar.MONTH) < c2.get(Calendar.MONTH)
-                || (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) < c2.get(Calendar.DAY_OF_MONTH) - 1)) {
-            return sdf2.format(c1.getTime());
-        }
-        if (c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH) - 1) {
-            return "昨天 " + c1.get(Calendar.HOUR_OF_DAY) + ":"
-                    + (c1.get(Calendar.MINUTE) < 10 ? "0" + c1.get(Calendar.MINUTE) : c1.get(Calendar.MINUTE));
-        }
-        if (c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)) {
-            return c1.get(Calendar.HOUR_OF_DAY) + ":" + (c1.get(Calendar.MINUTE) < 10 ? "0" + c1.get(Calendar.MINUTE) : c1.get(Calendar.MINUTE));
-        }
-        return sdf2.format(c1.getTime());
-    }
-
-    private static String compare3(Calendar c1) {
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yy-MM-dd HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd HH:mm");
-        Calendar c2 = Calendar.getInstance(TimeZone.getDefault());
-        if (c1.get(Calendar.YEAR) < c2.get(Calendar.YEAR)) {
-            return sdf1.format(c1.getTime());
-        }
-        if (c1.get(Calendar.MONTH) < c2.get(Calendar.MONTH)
-                || (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_MONTH) < c2.get(Calendar.DAY_OF_MONTH) - 1)) {
-            return sdf2.format(c1.getTime());
-        }
-        if (c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH) - 1) {
-            return "昨天 " + c1.get(Calendar.HOUR_OF_DAY) + ":"
-                    + (c1.get(Calendar.MINUTE) < 10 ? "0" + c1.get(Calendar.MINUTE) : c1.get(Calendar.MINUTE));
-        }
-        if (c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)) {
-            return c1.get(Calendar.HOUR_OF_DAY) + ":" + (c1.get(Calendar.MINUTE) < 10 ? "0" + c1.get(Calendar.MINUTE) : c1.get(Calendar.MINUTE));
-        }
-        return sdf2.format(c1.getTime());
-    }
 
     private static String compare1(Calendar c1) {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yy-MM-dd HH:mm");
@@ -267,27 +207,5 @@ public class TimeHelper {
             return c2.get(Calendar.MINUTE) - c1.get(Calendar.MINUTE) + "分钟前";
         }
         return "1分钟前";
-    }
-
-    public static String getScheduleTime(int start_time, int end_time) {
-        if (start_time == 0 || end_time == 0) {
-            return null;
-        }
-        return getTime(start_time) + "-" + getTime(end_time);
-    }
-
-    public static String getTime(int time) {
-        int hours = time / 3600; // needs to be an integer division
-        int leaves = time - hours * 3600;
-        int minutes = leaves / 60;
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2012, 01, 01, hours, minutes, 0);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        return sdf.format(calendar.getTime());
-    }
-
-    public static String getDate(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(new Date(timestamp));
     }
 }
