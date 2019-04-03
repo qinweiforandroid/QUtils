@@ -12,13 +12,7 @@ import android.net.NetworkInfo;
 
 public class NetworkUtil {
 
-    /**
-     * 网络是否连接
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isNetworkConnected(Context context) {
+    public static boolean isConnected(Context context) {
         if (context != null) {
             ConnectivityManager mConnectivityManager = (ConnectivityManager) context
                     .getSystemService(Context.CONNECTIVITY_SERVICE);

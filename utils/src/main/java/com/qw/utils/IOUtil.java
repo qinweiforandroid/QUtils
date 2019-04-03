@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * IO流操作工具类
+ */
 public final class IOUtil {
 
     public static final int IO_BUFFER_SIZE = 4 * 1024;

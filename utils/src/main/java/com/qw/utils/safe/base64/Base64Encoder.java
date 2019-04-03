@@ -10,8 +10,8 @@ import java.io.OutputStream;
  */
 
 public class Base64Encoder extends FilterOutputStream {
-    private static final char[] chars = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-            'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/' };
+    private static final char[] chars = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
     private int charCount;
     private int carryOver;
@@ -137,7 +137,6 @@ public class Base64Encoder extends FilterOutputStream {
      * @param bytes
      *            the bytes to encode
      * @return the encoded form of the unencoded string
-     * @throws IOException
      */
     public static String encode(byte[] bytes) {
         return encode(bytes, true);
@@ -151,7 +150,6 @@ public class Base64Encoder extends FilterOutputStream {
      * @param isWrapBreak
      *            是否每76字节换行
      * @return the encoded form of the unencoded string
-     * @throws IOException
      */
     public static String encode(byte[] bytes, boolean isWrapBreak) {
         ByteArrayOutputStream out = new ByteArrayOutputStream((int) (bytes.length * 1.4));

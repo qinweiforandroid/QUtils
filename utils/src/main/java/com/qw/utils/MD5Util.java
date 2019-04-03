@@ -9,6 +9,12 @@ import java.security.NoSuchAlgorithmException;
  */
 
 public class MD5Util {
+    /**
+     * 转md5字符
+     *
+     * @param s 需要转的字符
+     * @return md5加密后字符
+     */
     public final static String getMD5String(String s) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

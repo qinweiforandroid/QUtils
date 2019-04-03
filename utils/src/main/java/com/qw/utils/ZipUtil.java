@@ -40,7 +40,7 @@ public class ZipUtil {
      * @param zipFile Full path of the zip file you'd like to unzip.
      * @param dir     Full path of the directory you'd like to unzip to (will be created if it doesn't exist). null will create the unziped files
      *                to the same directory
-     * @throws IOException
+     * @throws IOException io
      */
     public static void unzip(String zipFile, String dir) throws IOException {
         int size;

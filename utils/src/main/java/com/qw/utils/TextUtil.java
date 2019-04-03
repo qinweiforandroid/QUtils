@@ -34,6 +34,7 @@ public class TextUtil {
     /**
      * 判断是否为金额
      *
+     * @param money 钱字符
      * @return true 是，false 否
      */
     public static boolean isMoneyStr(String money) {
@@ -56,33 +57,7 @@ public class TextUtil {
         }
     }
 
-    /**
-     * 转失败默认为0
-     *
-     * @param intStr
-     * @return
-     */
     public static int toInt(String intStr) {
         return toInt(intStr, 0);
     }
-
-    /**
-     * @param text
-     * @return
-     * @Description 判断是否是url
-     */
-    public static String matchUrl(String text) {
-        if (!isValidate(text)) {
-            return null;
-        }
-        Pattern p = Pattern.compile("[http]+[://]+[0-9A-Za-z:/[-]_#[?][=][.][&]]*",
-                Pattern.CASE_INSENSITIVE);
-        Matcher matcher = p.matcher(text);
-        if (matcher.find()) {
-            return matcher.group();
-        } else {
-            return null;
-        }
-    }
-
 }

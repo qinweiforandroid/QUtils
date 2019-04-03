@@ -23,4 +23,23 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.qw.utils.test", appContext.getPackageName());
     }
+
+
+    @Test
+    public void testNetWork() {
+        boolean isConnected = NetworkUtil.isConnected(InstrumentationRegistry.getTargetContext());
+        System.out.println("isConnected:" + isConnected);
+    }
+
+    @Test
+    public void testDensityUtil() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Trace.setTag("DensityUtil");
+        int dpi = DensityUtil.getDPI(appContext);
+        int w = DensityUtil.getScreenWidth(appContext);
+        int h = DensityUtil.getScreenHeight(appContext);
+        Trace.d("dpi " + dpi + " w:" + w + ",h:" + h);
+        Trace.d("2dp=" + DensityUtil.dip2px(appContext, 2) + "px");
+    }
 }

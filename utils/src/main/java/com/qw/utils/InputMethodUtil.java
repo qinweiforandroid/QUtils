@@ -6,14 +6,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 /**
+ * 软件盘工具类
  * Created by qinwei on 2019/1/21 9:46 AM
  * email: qin.wei@mwee.cn
  */
 
 public class InputMethodUtil {
     /**
-     * @param activity
-     * @Description 隐藏软键盘
+     * 隐藏软键盘
+     *
+     * @param activity A
      */
     public static void hideInput(Activity activity) {
         View view = activity.getWindow().peekDecorView();

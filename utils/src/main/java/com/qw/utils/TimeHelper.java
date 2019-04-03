@@ -13,12 +13,22 @@ import java.util.TimeZone;
 public class TimeHelper {
     /**
      * 返回自1970年至现在的毫秒数为特定的字符串.
+     *
+     * @param mSeconds s
+     * @return s
      */
     public static String updateMilliSecToFormatDateStr(long mSeconds) {
         SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd H:mm");
         return mDateFormat.format(new Date(mSeconds));
     }
 
+    /**
+     * s
+     *
+     * @param mSeconds s
+     * @param mFormat  s
+     * @return s
+     */
     public static String updateMilliSecToFormatDateStr(long mSeconds, String mFormat) {
         SimpleDateFormat mDateFormat = new SimpleDateFormat(mFormat);
         return mDateFormat.format(new Date(mSeconds));
@@ -26,6 +36,8 @@ public class TimeHelper {
 
     /**
      * 返回当前发送音频的时间点.
+     *
+     * @return 返回当前发送音频的时间点
      */
     public static String getChatSendTime() {
         try {
@@ -62,6 +74,8 @@ public class TimeHelper {
 
     /**
      * Get the format time.
+     *
+     * @return s
      */
     public static String getTime() {
         Date date = new Date();
@@ -81,7 +95,7 @@ public class TimeHelper {
 
     /**
      * @param time milliseconds
-     * @return
+     * @return getTimeRule1
      */
     public static String getTimeRule1(long time) {
         Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00"));
@@ -91,7 +105,7 @@ public class TimeHelper {
 
     /**
      * @param time yyyy-MM-dd HH:mm:ss
-     * @return
+     * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getTimeRule1(String time) {
         if (time == null || "".equals(time.trim())) {
@@ -110,7 +124,7 @@ public class TimeHelper {
 
     /**
      * @param time milliseconds
-     * @return
+     * @return getTimeRule2
      */
     public static String getTimeRule2(long time) {
         Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00"));
@@ -120,7 +134,7 @@ public class TimeHelper {
 
     /**
      * @param time yyyy-MM-dd HH:mm:ss
-     * @return
+     * @return 时间字符
      */
     public static String getTimeRule2(String time) {
         if (time == null || "".equals(time.trim())) {
