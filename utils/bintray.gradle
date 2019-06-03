@@ -42,7 +42,7 @@ install {
         pom {
             project {
                 description PROJ_DESCRIPTION
-                packaging 'jar'
+                packaging 'aar'
                 name PROJ_NAME
                 url PROJ_WEBSITEURL
                 licenses {

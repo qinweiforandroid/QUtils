@@ -19,26 +19,30 @@ public class SDCardUtil {
         return false;
     }
 
+    /**
+     * sd卡空闲空间
+     * 单位Byte
+     *
+     * @return
+     */
     public static long getSDFreeSize() {
         File path = Environment.getExternalStorageDirectory();
         StatFs sf = new StatFs(path.getPath());
         long blockSize = sf.getBlockSize();
         long freeBlocks = sf.getAvailableBlocks();
-        // return freeBlocks * blockSize; //单位Byte
-        // return (freeBlocks * blockSize)/1024; //单位KB
-        return (freeBlocks * blockSize) / 1024 / 1024; // 单位MB
+        return freeBlocks * blockSize;
     }
 
-    private static long getSDAllSize() {
+    /**
+     * sd卡总空间
+     *
+     * @return
+     */
+    public static long getSDAllSize() {
         File path = Environment.getExternalStorageDirectory();
         StatFs sf = new StatFs(path.getPath());
         long blockSize = sf.getBlockSize();
         long allBlocks = sf.getBlockCount();
-        // 返回SD卡大小
-        // return allBlocks * blockSize; //单位Byte
-        // return (allBlocks * blockSize)/1024; //单位KB
-        return (allBlocks * blockSize) / 1024 / 1024; // 单位MB
+        return allBlocks * blockSize; //单位Byte
     }
-
-
 }

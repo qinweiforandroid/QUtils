@@ -20,15 +20,18 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
-
         assertEquals("com.qw.utils.test", appContext.getPackageName());
     }
 
 
     @Test
     public void testNetWork() {
+        Trace.setTag("NetworkUtil");
         boolean isConnected = NetworkUtil.isConnected(InstrumentationRegistry.getTargetContext());
-        System.out.println("isConnected:" + isConnected);
+        Trace.d("isConnected:" + isConnected);
+        String ip = NetworkUtil.getLocalIpAddress();
+        Trace.d("ip:" + ip);
+
     }
 
     @Test
@@ -41,5 +44,32 @@ public class ExampleInstrumentedTest {
         int h = DensityUtil.getScreenHeight(appContext);
         Trace.d("dpi " + dpi + " w:" + w + ",h:" + h);
         Trace.d("2dp=" + DensityUtil.dip2px(appContext, 2) + "px");
+    }
+
+    @Test
+    public void testApk() {
+        Trace.setTag("ApkUtils");
+        boolean isInstalled = ApkUtils.checkApkExist(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
+        if (isInstalled) {
+            Trace.d("qq已安装");
+        } else {
+            Trace.d("qq未安装");
+        }
+    }
+
+    @Test
+    public void testSDCard() {
+        Trace.setTag("SDCardUtil");
+        boolean isExist = SDCardUtil.checkSDCard();
+        if (isExist) {
+            Trace.d("SDCard挂载");
+        } else {
+            Trace.d("SDCard不存在");
+        }
+        long freeSize = SDCardUtil.getSDFreeSize();
+        Trace.d("freeSize:" + freeSize * 1.0 / 1024 / 1024 + "M");
+        long allSize = SDCardUtil.getSDAllSize();
+        Trace.d("freeSize:" + allSize * 1.0 / 1024 / 1024 + "M");
+
     }
 }

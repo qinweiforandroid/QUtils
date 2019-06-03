@@ -1,8 +1,14 @@
 package com.qw.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
+
+import java.io.File;
 
 /**
  * 安装包工具类
@@ -15,7 +21,7 @@ public class ApkUtils {
      *
      * @param mContext    上下文
      * @param channel_key 渠道key
-     * @return
+     * @return 渠道名称
      */
     public static String getChannelName(Context mContext, String channel_key) {
         try {
@@ -40,7 +46,7 @@ public class ApkUtils {
      *
      * @param context     上下文
      * @param packageName 应用唯一标示
-     * @return
+     * @return true已安装 false 未安装
      */
     public static boolean checkApkExist(Context context, String packageName) {
         if (!TextUtil.isValidate(packageName))
@@ -53,5 +59,28 @@ public class ApkUtils {
             Trace.d(e.toString());
             return false;
         }
+    }
+
+    /**
+     * 应用安装
+     *
+     * @param context
+     * @param authority android 清单文件中配置的内容 provider标签下的authorities属性
+     * @param file      apk文件
+     */
+    public static void loadInstallApk(Context context, String authority, File file) {
+        if (!file.exists()) {
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= 24) {
+            Uri apkUri = FileProvider.getUriForFile(context, authority, file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        }
+        context.startActivity(intent);
     }
 }

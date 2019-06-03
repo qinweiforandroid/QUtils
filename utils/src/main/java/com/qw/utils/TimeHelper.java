@@ -76,8 +76,9 @@ public class TimeHelper {
     /**
      * 格式化时间
      *
-     * @param time 时间戳
-     * @return 格式2019-04-03 15:19
+     * @param time   时间戳
+     * @param format 样式 例如 yyyy-MM-dd HH:mm:ss
+     * @return yyyy-MM-dd HH:mm:ss 则返回2019-04-03 15:19
      */
     public static String getFormatTime(long time, String format) {
         Date date = new Date(time);
