@@ -1,5 +1,7 @@
 package com.qw.utils;
 
+import android.net.Uri;
+
 import org.junit.Test;
 
 /**
@@ -14,5 +16,6 @@ public class TimeTest {
         System.out.println("getTime    " + TimeHelper.getTime());
         System.out.println("getTimeRule1 " + TimeHelper.getTimeRule1(System.currentTimeMillis() - time));
         System.out.println("getTimeRule2 " + TimeHelper.getTimeRule2(System.currentTimeMillis() - time));
+
     }
 }

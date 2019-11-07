@@ -25,7 +25,7 @@ public class AESUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new String(Base64Encoder.encode(encrypt));
+        return Base64Encoder.encode(encrypt);
     }
 
     public static String decrypt(String keyStr, String encryptData) {
