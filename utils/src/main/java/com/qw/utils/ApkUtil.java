@@ -16,7 +16,7 @@ import java.io.File;
  * Created by qinwei on 2019/4/3 3:30 PM
  * email: qin.wei@mwee.cn
  */
-public class ApkUtils {
+public class ApkUtil {
     /**
      * 获取渠道名称
      *
@@ -49,7 +49,7 @@ public class ApkUtils {
      * @param packageName 应用唯一标示
      * @return true已安装 false 未安装
      */
-    public static boolean checkApkExist(Context context, String packageName) {
+    public static boolean checkExist(Context context, String packageName) {
         if (!TextUtil.isValidate(packageName))
             return false;
         try {
@@ -75,7 +75,7 @@ public class ApkUtils {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Uri apkUri = FileProvider.getUriForFile(context, authority, file);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");

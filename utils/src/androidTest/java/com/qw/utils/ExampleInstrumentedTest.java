@@ -49,7 +49,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void testApk() {
         Trace.setTag("ApkUtils");
-        boolean isInstalled = ApkUtils.checkApkExist(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
+        boolean isInstalled = ApkUtil.checkExist(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
         if (isInstalled) {
             Trace.d("qq已安装");
         } else {
