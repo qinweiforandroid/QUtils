@@ -5,7 +5,32 @@ import android.util.Log;
 public class Trace {
     private static String TAG = "qinwei";
     private static boolean debug = true;
-    private static ILog log;
+    private static ILog log = new ILog() {
+        @Override
+        public void v(String tag, String msg) {
+            Log.v(tag, msg + "");
+        }
+
+        @Override
+        public void d(String tag, String msg) {
+            Log.d(tag, msg + "");
+        }
+
+        @Override
+        public void i(String tag, String msg) {
+            Log.i(tag, msg + "");
+        }
+
+        @Override
+        public void w(String tag, String msg) {
+            Log.w(tag, msg + "");
+        }
+
+        @Override
+        public void e(String tag, String msg) {
+            Log.e(tag, msg + "");
+        }
+    };
 
     public static void v(String msg) {
         v(TAG, msg);
@@ -56,40 +81,30 @@ public class Trace {
 
     public static void v(String tag, String msg) {
         if (debug) {
-            Log.v(tag, msg + "");
-        } else {
             log.v(tag, msg);
         }
     }
 
     public static void d(String tag, String msg) {
         if (debug) {
-            Log.d(tag, msg + "");
-        } else {
             log.d(tag, msg + "");
         }
     }
 
     public static void i(String tag, String msg) {
         if (debug) {
-            Log.i(tag, msg + "");
-        } else {
             log.i(tag, msg + "");
         }
     }
 
     public static void w(String tag, String msg) {
         if (debug) {
-            Log.w(tag, msg + "");
-        } else {
             log.w(tag, msg + "");
         }
     }
 
     public static void e(String tag, String msg) {
         if (debug) {
-            Log.e(tag, msg + "");
-        } else {
             log.e(tag, msg + "");
         }
     }
