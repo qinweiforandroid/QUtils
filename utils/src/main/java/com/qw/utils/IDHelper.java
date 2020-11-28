@@ -13,7 +13,6 @@ public class IDHelper {
      * @return random id
      */
     public static String generateNew() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
+        return UUID.randomUUID().toString();
     }
 }
