@@ -8,7 +8,6 @@ import java.io.File;
 /**
  * SDCard工具类
  * Created by qinwei on 2019/1/21 9:50 AM
- * email: qin.wei@mwee.cn
  */
 
 public class SDCardUtil {

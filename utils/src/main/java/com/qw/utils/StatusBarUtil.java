@@ -1,6 +1,7 @@
 package com.qw.utils;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 
@@ -11,25 +12,22 @@ import android.view.View;
 public class StatusBarUtil {
     /**
      * @param activity
-     * @param dark
+     * @param dark     true 灰色  false 白色
      */
-    public static void setAndroidNativeLightStatusBar(Activity activity, boolean dark) {
+    public static void setLightStatusBar(Activity activity, boolean dark) {
         View decor = activity.getWindow().getDecorView();
+        int visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         if (dark) {
             //黑色字体
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                //白色字体
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+                visibility = visibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             }
         }
+        decor.setSystemUiVisibility(visibility);
+        setStatusBarColor(activity, Color.TRANSPARENT);
+        setNavigationBarColor(activity, Color.TRANSPARENT);
     }
 
     /**
@@ -56,7 +54,7 @@ public class StatusBarUtil {
         }
     }
 
-    public static void setFullscreenMode(Activity activity) {
+    public static void setFullscreen(Activity activity) {
         if (activity.hasWindowFocus() && Build.VERSION.SDK_INT >= 19) {
             View decorView = activity.getWindow().getDecorView();
             decorView.setSystemUiVisibility(

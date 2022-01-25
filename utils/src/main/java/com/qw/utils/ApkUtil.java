@@ -14,7 +14,6 @@ import java.io.File;
 /**
  * 安装包工具类
  * Created by qinwei on 2019/4/3 3:30 PM
- * email: qin.wei@mwee.cn
  */
 public class ApkUtil {
     /**
@@ -24,7 +23,7 @@ public class ApkUtil {
      * @param channel_key 渠道key
      * @return 渠道名称
      */
-    public static String getChannelName(Context mContext, String channel_key) {
+    public static String getChannel(Context mContext, String channel_key) {
         try {
             PackageManager packageManager = mContext.getPackageManager();
             if (packageManager != null) {
@@ -49,7 +48,7 @@ public class ApkUtil {
      * @param packageName 应用唯一标示
      * @return true已安装 false 未安装
      */
-    public static boolean checkExist(Context context, String packageName) {
+    public static boolean isInstalled(Context context, String packageName) {
         if (!TextUtil.isValidate(packageName))
             return false;
         try {

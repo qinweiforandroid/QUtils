@@ -1,13 +1,14 @@
 package com.qw.utils;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.runner.AndroidJUnit4;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -49,7 +50,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void testApk() {
         Trace.setTag("ApkUtils");
-        boolean isInstalled = ApkUtil.checkExist(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
+        boolean isInstalled = ApkUtil.isInstalled(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
         if (isInstalled) {
             Trace.d("qq已安装");
         } else {
