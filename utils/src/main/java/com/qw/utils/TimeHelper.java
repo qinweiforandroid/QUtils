@@ -10,13 +10,36 @@ import java.util.TimeZone;
  * 操作时间的工具类.
  */
 public class TimeHelper {
+    public static final String FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
+
+    public static SimpleDateFormat getDateFormat(String format) {
+        return new SimpleDateFormat(format);
+    }
+
     /**
      * 获取当前时间
      *
      * @return 当前时间戳
+     * @deprecated use currentTimeMillis()
      */
     public static long getCurrentTime() {
+        return currentTimeMillis();
+    }
+
+    public static long currentTimeMillis() {
         return System.currentTimeMillis();
+    }
+
+    public static String currentDateStr() {
+        Date date = new Date();
+        return formatDate(date);
+    }
+
+    public static Date currentDate() {
+        Date date = new Date();
+        String str = formatDate(date);
+        //去掉時分秒后的日期
+        return parseDate(str);
     }
 
     /**
@@ -26,7 +49,56 @@ public class TimeHelper {
      * @return yyyy-MM-dd
      */
     public static String getDate(long timestamp) {
-        return getFormatTime(timestamp, "yyyy-MM-dd");
+        return getFormatTime(timestamp, FORMAT_YYYY_MM_DD);
+    }
+
+
+    public static Date parse(String date, String format) {
+        try {
+            return getDateFormat(format).parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Date parseDate(String date) {
+        return parse(date, FORMAT_YYYY_MM_DD);
+    }
+
+    public static String format(Date date, String format) {
+        return getDateFormat(format).format(date);
+    }
+
+    public static String format(long timestamp, String format) {
+        Date date = new Date(timestamp);
+        return format(date, format);
+    }
+
+    public static String formatDate(long timestamp) {
+        return getFormatTime(timestamp, FORMAT_YYYY_MM_DD);
+    }
+
+    /**
+     * 格式化日期字符串 {@link #FORMAT_YYYY_MM_DD}
+     *
+     * @param date 日期
+     * @return
+     */
+    public static String formatDate(Date date) {
+        return format(date, FORMAT_YYYY_MM_DD);
+    }
+
+    /**
+     * 比较目标日期是否在时间区间内
+     *
+     * @param targetDate 目标时间
+     * @param startDate  开始时间
+     * @param endDate    结束时间
+     * @return
+     */
+    public static boolean between(Date targetDate, Date startDate, Date endDate) {
+        return targetDate.getTime() >= startDate.getTime() && targetDate.getTime() <= endDate.getTime();
     }
 
     /**
@@ -82,8 +154,7 @@ public class TimeHelper {
      */
     public static String getFormatTime(long time, String format) {
         Date date = new Date(time);
-        SimpleDateFormat myFormatter = new SimpleDateFormat(format);
-        return myFormatter.format(date);
+        return getDateFormat(format).format(date);
     }
 
 
