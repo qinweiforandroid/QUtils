@@ -2,19 +2,25 @@ package com.qw.utils;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Point;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
 public class DensityUtil {
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int dip2px(float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
+    public static int dip2px(int dp) {
+        return dip2px(Float.valueOf(dp));
+    }
+
+    public static int px2dip(float pxValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -34,8 +40,8 @@ public class DensityUtil {
         return outSize;
     }
 
-    public static int getDPI(Context context) {
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
+    public static int getDPI() {
+        DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
         return dm.densityDpi;
     }
 

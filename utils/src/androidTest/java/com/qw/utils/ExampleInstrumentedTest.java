@@ -2,13 +2,15 @@ package com.qw.utils;
 
 import android.content.Context;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import androidx.test.InstrumentationRegistry;
-import androidx.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -17,10 +19,17 @@ import androidx.test.runner.AndroidJUnit4;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    private Context appContext;
+
+    @Before
+    public void setUp() throws Exception {
+        appContext = InstrumentationRegistry.getInstrumentation().getContext();
+    }
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
         assertEquals("com.qw.utils.test", appContext.getPackageName());
     }
 
@@ -28,29 +37,28 @@ public class ExampleInstrumentedTest {
     @Test
     public void testNetWork() {
         Trace.setTag("NetworkUtil");
-        boolean isConnected = NetworkUtil.isConnected(InstrumentationRegistry.getTargetContext());
+        boolean isConnected = NetworkUtil.isConnected(appContext);
         Trace.d("isConnected:" + isConnected);
         String ip = NetworkUtil.getLocalIpAddress();
         Trace.d("ip:" + ip);
-
     }
 
     @Test
     public void testDensityUtil() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
         Trace.setTag("DensityUtil");
-        int dpi = DensityUtil.getDPI(appContext);
+        int dpi = DensityUtil.getDPI();
         int w = DensityUtil.getScreenWidth(appContext);
         int h = DensityUtil.getScreenHeight(appContext);
         Trace.d("dpi " + dpi + " w:" + w + ",h:" + h);
-        Trace.d("2dp=" + DensityUtil.dip2px(appContext, 2) + "px");
+        Trace.d("2dp=" + DensityUtil.dip2px(2) + "px");
     }
 
     @Test
     public void testApk() {
         Trace.setTag("ApkUtils");
-        boolean isInstalled = ApkUtil.isInstalled(InstrumentationRegistry.getTargetContext(), "com.tencent.mobileqq");
+        boolean isInstalled = ApkUtil.isInstalled(appContext, "com.tencent.mobileqq");
+        assertTrue(isInstalled);
         if (isInstalled) {
             Trace.d("qq已安装");
         } else {
