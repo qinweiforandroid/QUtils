@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingLeft="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="房間看電視了就發生了看大家分厘卡十九點"
+        android:textColor="@color/colorPrimary" />
 
     <Button
         android:id="@+id/mMainDarkBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="状态栏字体黑色" />
 
     <Button
@@ -19,9 +28,13 @@
         android:text="状态栏字体白色" />
 
     <Button
-        android:id="@+id/mMainStatusTransparentBtn"
+        android:id="@+id/mMainFullBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="reset" />
-
+        android:text="全屏" />
+    <Button
+        android:id="@+id/mMainNormalBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正常" />
 </LinearLayout>

@@ -20,7 +20,6 @@ public class TimeHelper {
      * 获取当前时间
      *
      * @return 当前时间戳
-     * @deprecated use currentTimeMillis()
      */
     public static long getCurrentTime() {
         return currentTimeMillis();

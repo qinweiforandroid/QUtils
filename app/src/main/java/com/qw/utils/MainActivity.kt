@@ -1,9 +1,14 @@
 package com.qw.utils
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.qw.utils.sample.R
 
 /**
@@ -14,38 +19,59 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mMainDarkBtn: Button
     private lateinit var mMainLightBtn: Button
-    private lateinit var mMainStatusTransparentBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        StatusBarUtil.setLightStatusBar(this, false)
         mMainDarkBtn = findViewById(R.id.mMainDarkBtn)
         mMainLightBtn = findViewById(R.id.mMainLightBtn)
-        mMainStatusTransparentBtn = findViewById(R.id.mMainStatusTransparentBtn)
+        findViewById<View>(R.id.mMainFullBtn).setOnClickListener(this)
+        findViewById<View>(R.id.mMainNormalBtn).setOnClickListener(this)
         mMainDarkBtn.setOnClickListener(this)
         mMainLightBtn.setOnClickListener(this)
-        mMainStatusTransparentBtn.setOnClickListener(this)
-
         findViewById<Button>(R.id.mMainDarkBtn)
-
-
-        supportActionBar?.hide()
-        val process = ProcessUtil.getProcessName(this)
-
-        Trace.d("process", "$process isMain:${ProcessUtil.isMainProcess(this)}")
+        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mMainDarkBtn -> {
-                StatusBarUtil.setLightStatusBar(this, true)
+                val controller =
+                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.statusBarColor = Color.TRANSPARENT
+                    window.navigationBarColor = Color.TRANSPARENT
+                }
+                controller?.let {
+                    it.isAppearanceLightStatusBars = true
+                    it.isAppearanceLightNavigationBars = true
+                }
             }
             R.id.mMainLightBtn -> {
-                StatusBarUtil.setLightStatusBar(this, false)
+                val controller =
+                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    window.statusBarColor = Color.TRANSPARENT
+                    window.navigationBarColor = Color.TRANSPARENT
+                }
+                controller?.let {
+                    it.isAppearanceLightStatusBars = false
+                    it.isAppearanceLightNavigationBars = false
+                }
             }
-            R.id.mMainStatusTransparentBtn -> {
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            R.id.mMainFullBtn -> {
+                val controller =
+                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
+                controller?.let {
+                    it.hide(WindowInsetsCompat.Type.systemBars())
+                    it.systemBarsBehavior =
+                        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
+            }
+            R.id.mMainNormalBtn -> {
+                val controller =
+                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
+                controller?.show(WindowInsetsCompat.Type.systemBars())
             }
             else -> {
 
