@@ -30,48 +30,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mMainDarkBtn.setOnClickListener(this)
         mMainLightBtn.setOnClickListener(this)
         findViewById<Button>(R.id.mMainDarkBtn)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mMainDarkBtn -> {
-                val controller =
-                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.statusBarColor = Color.TRANSPARENT
-                    window.navigationBarColor = Color.TRANSPARENT
-                }
-                controller?.let {
-                    it.isAppearanceLightStatusBars = true
-                    it.isAppearanceLightNavigationBars = true
-                }
+                StatusBarUtil.setLightStatusBar(this, true)
             }
             R.id.mMainLightBtn -> {
-                val controller =
-                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    window.statusBarColor = Color.TRANSPARENT
-                    window.navigationBarColor = Color.TRANSPARENT
-                }
-                controller?.let {
-                    it.isAppearanceLightStatusBars = false
-                    it.isAppearanceLightNavigationBars = false
-                }
+                StatusBarUtil.setLightStatusBar(this, false)
             }
             R.id.mMainFullBtn -> {
-                val controller =
-                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
-                controller?.let {
-                    it.hide(WindowInsetsCompat.Type.systemBars())
-                    it.systemBarsBehavior =
-                        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                }
+                StatusBarUtil.setFullscreen(this)
             }
             R.id.mMainNormalBtn -> {
-                val controller =
-                    WindowCompat.getInsetsController(window, findViewById(R.id.mRoot))
-                controller?.show(WindowInsetsCompat.Type.systemBars())
+                StatusBarUtil.setNormal(this)
             }
             else -> {
 

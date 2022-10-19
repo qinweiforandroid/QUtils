@@ -1,9 +1,12 @@
 package com.qw.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
+
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by qinwei on 2019-06-11 09:22
@@ -65,5 +68,24 @@ public class StatusBarUtil {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        int identifier = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        var result = 0;
+        if (identifier > 0) {
+            result = context.getResources().getDimensionPixelSize(identifier);
+        }
+        if (result == 0) {
+            float scale = context.getResources().getDisplayMetrics().density;
+            result = (int) (25F * scale + 0.5f);
+        }
+        return result;
+    }
+
+    public static void setNormal(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 }
