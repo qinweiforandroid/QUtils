@@ -1,14 +1,9 @@
 package com.qw.utils
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.qw.utils.sample.R
 
 /**
@@ -30,15 +25,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mMainDarkBtn.setOnClickListener(this)
         mMainLightBtn.setOnClickListener(this)
         findViewById<Button>(R.id.mMainDarkBtn)
+        println(StatusBar.get(this).height)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mMainDarkBtn -> {
-                StatusBarUtil.setLightStatusBar(this, true)
+//                StatusBarUtil.setLightStatusBar(this, true)
+                StatusBar.get(this)
+                    .setDecorFitsSystemWindows(false)
+                    .setNavigationBarColor(android.R.color.transparent)
+                    .setAppearanceLightStatusBars(true)
+                    .setAppearanceLightNavigationBars(true)
             }
             R.id.mMainLightBtn -> {
-                StatusBarUtil.setLightStatusBar(this, false)
+                StatusBar.get(this)
+                    .setDecorFitsSystemWindows(false)
+                    .setNavigationBarColor(android.R.color.transparent)
+                    .setAppearanceLightStatusBars(false)
+                    .setAppearanceLightNavigationBars(false)
+//                StatusBarUtil.setLightStatusBar(this, false)
             }
             R.id.mMainFullBtn -> {
                 StatusBarUtil.setFullscreen(this)

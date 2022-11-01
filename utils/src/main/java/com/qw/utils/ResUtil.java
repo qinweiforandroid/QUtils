@@ -17,4 +17,13 @@ public class ResUtil {
         }
         return Color.BLACK;
     }
+
+    public static int getResourceOfAttr(Context context, int attr) {
+        if (context.getTheme().resolveAttribute(attr, typedValue, true)) {
+            return typedValue.resourceId;
+        } else {
+            return Color.BLACK;
+        }
+    }
+
 }
