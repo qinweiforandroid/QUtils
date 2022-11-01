@@ -47,10 +47,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //                StatusBarUtil.setLightStatusBar(this, false)
             }
             R.id.mMainFullBtn -> {
-                StatusBarUtil.setFullscreen(this)
+//                StatusBarUtil.setFullscreen(this)
+                StatusBar.get(this).hideStatusBarsAndNavigationBars()
             }
             R.id.mMainNormalBtn -> {
-                StatusBarUtil.setNormal(this)
+                StatusBar.get(this).showStatusBarsAndNavigationBars()
+//                StatusBarUtil.setNormal(this)
             }
             else -> {
 

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.view.View;
 
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 /**
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 public class StatusBar {
     private final View content;
     private final Activity activity;
+    private final WindowInsetsControllerCompat controller;
 
     public static StatusBar get(Activity activity) {
         return new StatusBar(activity);
@@ -21,18 +23,62 @@ public class StatusBar {
     private StatusBar(Activity activity) {
         this.activity = activity;
         this.content = activity.findViewById(android.R.id.content);
+        controller = WindowCompat.getInsetsController(activity.getWindow(), content);
     }
 
+    /**
+     * @param isLight true字体黑色,false白色
+     * @return
+     */
     public StatusBar setAppearanceLightStatusBars(boolean isLight) {
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(activity.getWindow(), content);
         if (controller != null) {
             controller.setAppearanceLightStatusBars(isLight);
         }
         return this;
     }
 
+    public StatusBar hideStatusBars() {
+        if (controller != null) {
+            controller.hide(WindowInsetsCompat.Type.statusBars());
+        }
+        return this;
+    }
+
+
+    public StatusBar hideStatusBarsAndNavigationBars() {
+        hideStatusBars();
+        hideNavigationBars();
+        return this;
+    }
+
+    public StatusBar showStatusBarsAndNavigationBars() {
+        showStatusBars();
+        showNavigationBars();
+        return this;
+    }
+
+    public StatusBar showStatusBars() {
+        if (controller != null) {
+            controller.show(WindowInsetsCompat.Type.statusBars());
+        }
+        return this;
+    }
+
+    public StatusBar hideNavigationBars() {
+        if (controller != null) {
+            controller.hide(WindowInsetsCompat.Type.navigationBars());
+        }
+        return this;
+    }
+
+    public StatusBar showNavigationBars() {
+        if (controller != null) {
+            controller.show(WindowInsetsCompat.Type.navigationBars());
+        }
+        return this;
+    }
+
     public StatusBar setAppearanceLightNavigationBars(boolean isLight) {
-        WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(activity.getWindow(), content);
         if (controller != null) {
             controller.setAppearanceLightNavigationBars(isLight);
         }
