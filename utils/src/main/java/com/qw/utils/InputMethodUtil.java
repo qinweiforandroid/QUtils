@@ -8,7 +8,6 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * 软件盘工具类
  * Created by qinwei on 2019/1/21 9:46 AM
- * email: qin.wei@mwee.cn
  */
 
 public class InputMethodUtil {

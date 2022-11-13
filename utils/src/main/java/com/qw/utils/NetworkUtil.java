@@ -15,7 +15,6 @@ import java.util.Enumeration;
 /**
  * 网络信息工具类
  * Created by qinwei on 2019/1/21 9:44 AM
- * email: qin.wei@mwee.cn
  */
 
 public class NetworkUtil {

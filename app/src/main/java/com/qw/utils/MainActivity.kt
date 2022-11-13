@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        ToastUtils.injectToast(ToastImpl(application))
         mMainDarkBtn = findViewById(R.id.mMainDarkBtn)
         mMainLightBtn = findViewById(R.id.mMainLightBtn)
         findViewById<View>(R.id.mMainFullBtn).setOnClickListener(this)
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     .setNavigationBarColor(android.R.color.transparent)
                     .setAppearanceLightStatusBars(true)
                     .setAppearanceLightNavigationBars(true)
+
+                ToastUtils.show("mMainDarkBtn")
             }
             R.id.mMainLightBtn -> {
                 StatusBar.get(this)

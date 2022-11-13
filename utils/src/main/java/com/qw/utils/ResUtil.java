@@ -25,5 +25,4 @@ public class ResUtil {
             return Color.BLACK;
         }
     }
-
 }
