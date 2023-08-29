@@ -1,5 +1,7 @@
 package com.qw.utils
 
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -27,36 +29,48 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mMainLightBtn.setOnClickListener(this)
         findViewById<Button>(R.id.mMainDarkBtn)
         println(StatusBar.get(this).height)
+
+        val uri = Uri.Builder()
+            .scheme("dl")
+            .authority("dl.com")
+            .path("app/main")
+            .appendQueryParameter("a", "1")
+            .appendQueryParameter("b", "2")
+            .build()
+        println(uri.toString())
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.mMainDarkBtn -> {
-//                StatusBarUtil.setLightStatusBar(this, true)
                 StatusBar.get(this)
                     .setDecorFitsSystemWindows(false)
-                    .setNavigationBarColor(android.R.color.transparent)
+                    .setStatusBarColor(Color.TRANSPARENT)
+                    .setNavigationBarColor(Color.TRANSPARENT)
                     .setAppearanceLightStatusBars(true)
                     .setAppearanceLightNavigationBars(true)
-
                 ToastUtils.show("mMainDarkBtn")
             }
+
             R.id.mMainLightBtn -> {
                 StatusBar.get(this)
                     .setDecorFitsSystemWindows(false)
-                    .setNavigationBarColor(android.R.color.transparent)
+                    .setStatusBarColor(Color.TRANSPARENT)
+                    .setNavigationBarColor(Color.TRANSPARENT)
                     .setAppearanceLightStatusBars(false)
                     .setAppearanceLightNavigationBars(false)
-//                StatusBarUtil.setLightStatusBar(this, false)
             }
+
             R.id.mMainFullBtn -> {
-//                StatusBarUtil.setFullscreen(this)
                 StatusBar.get(this).hideStatusBarsAndNavigationBars()
             }
+
             R.id.mMainNormalBtn -> {
-                StatusBar.get(this).showStatusBarsAndNavigationBars()
-//                StatusBarUtil.setNormal(this)
+                StatusBar.get(this)
+                    .setDecorFitsSystemWindows(true)
+                    .showStatusBarsAndNavigationBars()
             }
+
             else -> {
 
             }

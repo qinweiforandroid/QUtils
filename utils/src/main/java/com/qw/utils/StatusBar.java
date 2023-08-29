@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -85,26 +86,21 @@ public class StatusBar {
         return this;
     }
 
-    public StatusBar setNavigationBarColor(int color) {
+    public StatusBar setNavigationBarColor(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setNavigationBarColor(activity.getResources()
-                    .getColor(color));
+            activity.getWindow().setNavigationBarColor(color);
         }
         return this;
     }
 
     public StatusBar setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(activity.getResources()
-                    .getColor(color));
+            activity.getWindow().setStatusBarColor(color);
         }
         return this;
     }
 
     public StatusBar setDecorFitsSystemWindows(boolean decorFitsSystemWindows) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && !decorFitsSystemWindows) {
-            setStatusBarColor(android.R.color.transparent);
-        }
         WindowCompat.setDecorFitsSystemWindows(activity.getWindow(), decorFitsSystemWindows);
         return this;
     }
