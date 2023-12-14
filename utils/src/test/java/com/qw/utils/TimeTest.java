@@ -24,6 +24,17 @@ public class TimeTest {
     }
 
     @Test
+    public void format() {
+        //theater_parent_update_time	Integer	37873
+        long time = 64800L * 1000;
+        String date = TimeHelper.getDate(System.currentTimeMillis());
+        time = TimeHelper.parseDate(date).getTime() + time;
+        System.out.println("old:" + time);
+        System.out.println("now:" + System.currentTimeMillis());
+        System.out.println("result:" + TimeHelper.getTime(time));
+    }
+
+    @Test
     public void name() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -42,4 +53,5 @@ public class TimeTest {
             e.printStackTrace();
         }
     }
+
 }

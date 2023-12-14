@@ -79,6 +79,5 @@ public class ExampleInstrumentedTest {
         Trace.d("freeSize:" + freeSize * 1.0 / 1024 / 1024 + "M");
         long allSize = SDCardUtil.getSDAllSize();
         Trace.d("freeSize:" + allSize * 1.0 / 1024 / 1024 + "M");
-
     }
 }

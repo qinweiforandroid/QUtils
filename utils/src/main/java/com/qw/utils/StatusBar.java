@@ -23,7 +23,7 @@ public class StatusBar {
 
     private StatusBar(Activity activity) {
         this.activity = activity;
-        this.content = activity.findViewById(android.R.id.content);
+        this.content = activity.getWindow().getDecorView();
         controller = WindowCompat.getInsetsController(activity.getWindow(), content);
     }
 
