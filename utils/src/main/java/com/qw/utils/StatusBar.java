@@ -1,6 +1,7 @@
 package com.qw.utils;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Build;
 import android.view.View;
 
@@ -105,7 +106,7 @@ public class StatusBar {
         return this;
     }
 
-    public int getHeight() {
+    public int getStatusBarHeight() {
         int identifier = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         var result = 0;
         if (identifier > 0) {
@@ -116,5 +117,17 @@ public class StatusBar {
             result = (int) (25F * scale + 0.5f);
         }
         return result;
+    }
+
+    public int getNavigationBarHeight() {
+        try {
+            int identifier = activity.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+            if (identifier > 0) {
+                return activity.getResources().getDimensionPixelSize(identifier);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
