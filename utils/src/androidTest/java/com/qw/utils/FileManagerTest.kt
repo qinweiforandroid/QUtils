@@ -1,6 +1,8 @@
 package com.qw.utils
 
 import android.app.Application
+import android.os.Environment
+import androidx.core.os.EnvironmentCompat
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Before
@@ -20,5 +22,7 @@ class FileManagerTest {
         Trace.d("emoDir:" + FileManager.emoDir)
         Trace.d("dowDir:" + FileManager.downloadDir)
         Trace.d("zipDir:" + FileManager.zipDir)
+        val dowDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        Trace.d("pucDir:$dowDir")
     }
 }

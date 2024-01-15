@@ -28,7 +28,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mMainDarkBtn.setOnClickListener(this)
         mMainLightBtn.setOnClickListener(this)
         findViewById<Button>(R.id.mMainDarkBtn)
-        println(StatusBar.get(this).height)
+
+        Trace.d("statusBarHeight," + StatusBar.get(this).statusBarHeight.toString())
+        Trace.d("navigationBarHeight," + StatusBar.get(this).navigationBarHeight.toString())
 
         val uri = Uri.Builder()
             .scheme("dl")
