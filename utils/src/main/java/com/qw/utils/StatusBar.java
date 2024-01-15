@@ -1,7 +1,6 @@
 package com.qw.utils;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Build;
 import android.view.View;
 
