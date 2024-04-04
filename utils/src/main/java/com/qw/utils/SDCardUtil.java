@@ -12,10 +12,7 @@ import java.io.File;
 
 public class SDCardUtil {
     public static boolean checkSDCard() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        }
-        return false;
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
     /**

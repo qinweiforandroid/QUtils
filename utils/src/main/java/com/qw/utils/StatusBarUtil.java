@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 
-import androidx.fragment.app.FragmentActivity;
-
 /**
  * Created by qinwei on 2019-06-11 09:22
  * email: qinwei_it@163.com

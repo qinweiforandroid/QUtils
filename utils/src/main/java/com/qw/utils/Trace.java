@@ -70,7 +70,7 @@ public class Trace {
 
 
     public static String getTraceInfo() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         StackTraceElement[] stacks = new Throwable().getStackTrace();
         sb.append("class: ").append(stacks[1].getClassName())
                 .append("; method: ").append(stacks[1].getMethodName())
@@ -87,32 +87,32 @@ public class Trace {
 
     public static void d(String tag, String msg) {
         if (debug) {
-            log.d(tag, msg + "");
+            log.d(tag, msg);
         }
     }
 
     public static void i(String tag, String msg) {
         if (debug) {
-            log.i(tag, msg + "");
+            log.i(tag, msg);
         }
     }
 
     public static void w(String tag, String msg) {
         if (debug) {
-            log.w(tag, msg + "");
+            log.w(tag, msg);
         }
     }
 
     public static void e(String tag, String msg) {
         if (debug) {
-            log.e(tag, msg + "");
+            log.e(tag, msg);
         }
     }
 
     /**
      * 设置全局tag
      *
-     * @param tag
+     * @param tag tag
      */
     public static void setTag(String tag) {
         Trace.TAG = tag;
@@ -121,7 +121,7 @@ public class Trace {
     /**
      * 设置开发模式
      *
-     * @param debug
+     * @param debug debug
      */
     public static void setDebug(boolean debug) {
         Trace.debug = debug;

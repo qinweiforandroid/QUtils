@@ -3,8 +3,6 @@ package com.qw.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -25,9 +23,6 @@ public class NetworkUtil {
 
     /**
      * 网络是否正常
-     *
-     * @param context
-     * @return
      */
     public static boolean isConnected(Context context) {
         if (context != null) {
@@ -41,9 +36,6 @@ public class NetworkUtil {
 
     /**
      * 网络是否是wifi
-     *
-     * @param context
-     * @return
      */
     public static boolean isWifiConnected(Context context) {
         NetworkInfo networkInfo = getConnectivityManager(context).getActiveNetworkInfo();
@@ -58,9 +50,6 @@ public class NetworkUtil {
 
     /**
      * 判断是否是移动网络
-     *
-     * @param context
-     * @return
      */
     public static boolean isMobileConnected(Context context) {
         if (context != null) {
@@ -94,9 +83,6 @@ public class NetworkUtil {
 
     /**
      * 将得到的int类型的IP转换为String类型
-     *
-     * @param ip
-     * @return
      */
     public static String intIP2StringIP(int ip) {
         return (ip & 0xFF) + "." +

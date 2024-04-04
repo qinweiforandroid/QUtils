@@ -44,12 +44,13 @@ public class ZipUtil {
      */
     public static void unzip(String zipFile, String dir) throws IOException {
         int size;
-        if (dir == null || "".equals(dir.trim())) {
+        if (dir == null || dir.trim().isEmpty()) {
             File file = new File(zipFile);
             dir = file.getParent();
         }
         byte[] buffer = new byte[BUFFER_SIZE];
         try {
+            assert dir != null;
             if (!dir.endsWith("/")) {
                 dir += "/";
             }
@@ -102,18 +103,15 @@ public class ZipUtil {
     public static void zip(File[] files, String zipFile) throws IOException {
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));
         try {
-            byte data[] = new byte[BUFFER_SIZE];
-            for (int i = 0; i < files.length; i++) {
-                FileInputStream fi = new FileInputStream(files[i]);
-                try {
-                    ZipEntry entry = new ZipEntry(files[i].getName());
+            byte[] data = new byte[BUFFER_SIZE];
+            for (File file : files) {
+                try (FileInputStream fi = new FileInputStream(file)) {
+                    ZipEntry entry = new ZipEntry(file.getName());
                     out.putNextEntry(entry);
                     int count;
                     while ((count = fi.read(data)) > 0) {
                         out.write(data, 0, count);
                     }
-                } finally {
-                    fi.close();
                 }
             }
         } finally {
@@ -121,5 +119,4 @@ public class ZipUtil {
             out.close();
         }
     }
-
 }

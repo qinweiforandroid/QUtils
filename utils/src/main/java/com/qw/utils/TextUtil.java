@@ -9,15 +9,12 @@ import java.util.regex.Pattern;
  */
 public class TextUtil {
     public static boolean isValidate(String content) {
-        if (content != null && !"".equals(content.trim())) {
-            return true;
-        }
-        return false;
+        return content != null && !content.trim().isEmpty();
     }
 
     public static boolean isValidate(String... contents) {
-        for (int i = 0; i < contents.length; i++) {
-            if (contents[i] == null || "".equals(contents[i].trim())) {
+        for (String content : contents) {
+            if (content == null || content.trim().isEmpty()) {
                 return false;
             }
         }
@@ -25,10 +22,7 @@ public class TextUtil {
     }
 
     public static boolean isValidate(ArrayList<?> list) {
-        if (list != null && list.size() > 0) {
-            return true;
-        }
-        return false;
+        return list != null && !list.isEmpty();
     }
 
     /**
@@ -50,7 +44,7 @@ public class TextUtil {
      */
     public static int toInt(String intStr, int defaultValue) {
         try {
-            return Integer.valueOf(intStr);
+            return Integer.parseInt(intStr);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return defaultValue;

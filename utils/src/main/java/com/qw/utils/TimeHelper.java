@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -12,15 +14,19 @@ import java.util.TimeZone;
 public class TimeHelper {
     public static final String FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
 
+    public static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+
     public static SimpleDateFormat getDateFormat(String format) {
-        return new SimpleDateFormat(format);
+        return new SimpleDateFormat(format, Locale.getDefault());
     }
 
     /**
      * 获取当前时间
      *
      * @return 当前时间戳
+     * @deprecated use {@link #currentTimeMillis()}
      */
+    @Deprecated(since = "1.7")
     public static long getCurrentTime() {
         return currentTimeMillis();
     }
@@ -82,7 +88,6 @@ public class TimeHelper {
      * 格式化日期字符串 {@link #FORMAT_YYYY_MM_DD}
      *
      * @param date 日期
-     * @return
      */
     public static String formatDate(Date date) {
         return format(date, FORMAT_YYYY_MM_DD);
@@ -94,7 +99,6 @@ public class TimeHelper {
      * @param targetDate 目标时间
      * @param startDate  开始时间
      * @param endDate    结束时间
-     * @return
      */
     public static boolean between(Date targetDate, Date startDate, Date endDate) {
         return targetDate.getTime() >= startDate.getTime() && targetDate.getTime() <= endDate.getTime();
@@ -107,9 +111,9 @@ public class TimeHelper {
      * @return yyyy-MM-dd
      */
     public static String getDate(String dateTimeStr) {
-        SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat myFormatter = getDateFormat(FORMAT_DATE_TIME);
         try {
-            return getDate(myFormatter.parse(dateTimeStr).getTime());
+            return getDate(Objects.requireNonNull(myFormatter.parse(dateTimeStr)).getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -130,7 +134,7 @@ public class TimeHelper {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getTime(long time) {
-        return getFormatTime(time, "yyyy-MM-dd HH:mm:ss");
+        return getFormatTime(time, FORMAT_DATE_TIME);
     }
 
 
@@ -140,7 +144,7 @@ public class TimeHelper {
      * @return MM-dd HH:mm
      */
     public static String getHeadTime() {
-        return getFormatTime(getCurrentTime(), "MM-dd HH:mm");
+        return getFormatTime(currentTimeMillis(), "MM-dd HH:mm");
     }
 
 
@@ -172,13 +176,14 @@ public class TimeHelper {
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static String getTimeRule1(String time) {
-        if (time == null || "".equals(time.trim())) {
+        if (time == null || time.trim().isEmpty()) {
             return "刚刚";
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = getDateFormat(FORMAT_DATE_TIME);
         try {
             Date date = sdf.parse(time);
             Calendar c1 = Calendar.getInstance(TimeZone.getTimeZone("GMT+8:00"));
+            assert date != null;
             c1.setTime(date);
             return compare1(c1);
         } catch (ParseException e) {
@@ -201,10 +206,10 @@ public class TimeHelper {
      * @return 时间字符
      */
     public static String getTimeRule2(String time) {
-        if (time == null || "".equals(time.trim())) {
+        if (time == null || time.trim().isEmpty()) {
             return "刚刚";
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = getDateFormat(FORMAT_DATE_TIME);
         Date date = null;
         try {
             date = sdf.parse(time);
@@ -218,8 +223,8 @@ public class TimeHelper {
 
 
     private static String compare1(Calendar c1) {
-        SimpleDateFormat sdf1 = new SimpleDateFormat("yy-MM-dd HH:mm");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("MM-dd HH:mm");
+        SimpleDateFormat sdf1 = getDateFormat("yy-MM-dd HH:mm");
+        SimpleDateFormat sdf2 = getDateFormat("MM-dd HH:mm");
         Calendar c2 = Calendar.getInstance(TimeZone.getDefault());
         if (c1.get(Calendar.YEAR) < c2.get(Calendar.YEAR)) {
             return sdf1.format(c1.getTime());

@@ -15,15 +15,15 @@ public class MD5Util {
      * @param s 需要转的字符
      * @return md5加密后字符
      */
-    public final static String getMD5String(String s) {
+    public static String getMD5String(String s) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(s.getBytes());
-            byte b[] = md.digest();
+            byte[] b = md.digest();
             int i;
-            StringBuilder buf = new StringBuilder("");
-            for (int offset = 0; offset < b.length; offset++) {
-                i = b[offset];
+            StringBuilder buf = new StringBuilder();
+            for (byte value : b) {
+                i = value;
                 if (i < 0) {
                     i += 256;
                 }
